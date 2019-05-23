@@ -16,6 +16,7 @@ LABEL maintainer.0="David Michael <david@crypdex.io>"
 ARG ARCH
 ENV VERSION="0.6.1-beta"
 
+
 RUN apk add curl su-exec bash
 
 RUN adduser -S lnd

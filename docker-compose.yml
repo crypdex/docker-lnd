@@ -3,6 +3,7 @@ version: "3.7"
 services:
   lnd:
     image: crypdex/lnd:0.6
+    restart: on-failure
     command:
       --litecoin.active
       --litecoin.mainnet
@@ -15,14 +16,18 @@ services:
     depends_on:
       - litecoin
     volumes:
-      - /Volumes/T5/data2/lnd:/home/lnd/.lnd
+      - /Volumes/T5/data/lnd:/home/lnd/.lnd
 
   # Supporting services
   litecoin:
-    image: crypdex/litecoin-core:0.16
+    image: crypdex/litecoin-core:0.17
+    restart: on-failure
     command:
       -rpcuser=abc
       -rpcpassword=123
       -printtoconsole
+      -txindex
+    ports:
+      - 9332:9332
     volumes:
-      - /Volumes/T5/data2/litecoin:/home/litecoin/.litecoin
+      - /Volumes/T5/data/litecoin:/home/litecoin/.litecoin
