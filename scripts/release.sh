@@ -8,7 +8,7 @@
 ORG="crypdex"
 SERVICE="lnd"
 VERSION='0.6'
-ARCH="x86_64"
+ARCH="arm64v8 x86_64"
 
 # Build and push builds for these architectures
 for arch in ${ARCH}; do

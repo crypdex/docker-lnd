@@ -1,3 +1,22 @@
+You must pass at least the following flags (using Litecoin as an example)
+```
+--litecoin.active
+--litecoin.mainnet
+--litecoin.node=litecoind
+```
+
+In order to speak to the chain daemon, you must either set the directory where LND can find the config and chain data
+```
+--litecoind.dir=/home/lnd/.litecoin (.ltcd)
+```
+
+or pass in the RPC credentials
+```
+--litecoind.rpcuser=
+--litecoind.rpcpassword=
+```
+
+
 ```
 Usage:
   lnd [OPTIONS]

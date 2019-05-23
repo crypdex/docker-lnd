@@ -10,9 +10,8 @@ ARG IMAGE=debian:stable-slim
 
 FROM ${IMAGE} as builder
 
-LABEL maintainer.0="David Michael"
+LABEL maintainer.0="David Michael <david@crypdex.io>"
 
-# Not sure why this needs to be declared after the IMAGE
 # amd64 | arm64
 ARG ARCH
 ENV VERSION="0.6.1-beta"
@@ -41,9 +40,10 @@ COPY --from=builder /tmp/lnd /usr/local/bin/
 
 COPY entrypoint.sh /entrypoint.sh
 
-RUN useradd -r lightning
+RUN useradd -r lnd
 
-VOLUME ["/home/lightning/data"]
+# This volume is to be mounted
+VOLUME ["/home/lnd/.lnd"]
 
 EXPOSE 44440 44444
 

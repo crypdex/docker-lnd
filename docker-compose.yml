@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  lnd:
+    image: crypdex/lnd:0.6-x86_64
+    command:
+      --litecoin.active
+      --litecoin.mainnet
+      --litecoin.node=litecoind
