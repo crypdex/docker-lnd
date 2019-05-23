@@ -34,7 +34,8 @@ COPY entrypoint.sh /entrypoint.sh
 # This volume is to be mounted
 VOLUME ["/home/lnd/.lnd"]
 
-EXPOSE 44440 44444
+# GRPC P2P
+EXPOSE 10009 9735
 
 ENTRYPOINT ["/entrypoint.sh"]
 

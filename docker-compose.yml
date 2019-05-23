@@ -4,6 +4,7 @@ services:
   lnd:
     image: crypdex/lnd:0.6
     restart: on-failure
+    container_name: lnd
     command:
       --litecoin.active
       --litecoin.mainnet
@@ -13,6 +14,10 @@ services:
       --litecoind.rpcpass=123
       --litecoind.zmqpubrawblock=tcp://litecoin:28333
       --litecoind.zmqpubrawtx=tcp://litecoin:28334
+      --rpclisten=0.0.0.0:10009
+    ports:
+      - 9735:9735
+      - 10009:10009 # expose the RPC so lncli can get in touch
     depends_on:
       - litecoin
     volumes:
@@ -21,13 +26,20 @@ services:
   # Supporting services
   litecoin:
     image: crypdex/litecoin-core:0.17
+    container_name: litecoin # Without this, lnd cannot reach the litecoin daemon
     restart: on-failure
+    # -zmq* and -rpcallowip flags are necessary
     command:
       -rpcuser=abc
       -rpcpassword=123
       -printtoconsole
       -txindex
+      -rpcallowip=0.0.0.0/0
+      -zmqpubrawblock=tcp://0.0.0.0:28333
+      -zmqpubrawtx=tcp://0.0.0.0:28334
     ports:
-      - 9332:9332
+      - 9332:9332 # RPC connections
+      - 28333:28333 # ZMQ block events
+      - 28334:28334 # ZMQ tx events
     volumes:
       - /Volumes/T5/data/litecoin:/home/litecoin/.litecoin
