@@ -2,8 +2,27 @@ version: "3.7"
 
 services:
   lnd:
-    image: crypdex/lnd:0.6-x86_64
+    image: crypdex/lnd:0.6
     command:
       --litecoin.active
       --litecoin.mainnet
       --litecoin.node=litecoind
+      --litecoind.rpchost=litecoin
+      --litecoind.rpcuser=abc
+      --litecoind.rpcpass=123
+      --litecoind.zmqpubrawblock=tcp://litecoin:28333
+      --litecoind.zmqpubrawtx=tcp://litecoin:28334
+    depends_on:
+      - litecoin
+    volumes:
+      - /Volumes/T5/data2/lnd:/home/lnd/.lnd
+
+  # Supporting services
+  litecoin:
+    image: crypdex/litecoin-core:0.16
+    command:
+      -rpcuser=abc
+      -rpcpassword=123
+      -printtoconsole
+    volumes:
+      - /Volumes/T5/data2/litecoin:/home/litecoin/.litecoin
