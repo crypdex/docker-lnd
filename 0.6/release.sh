@@ -24,7 +24,7 @@ for arch in ${ARCH}; do
 
   echo "=> Building LND ${VERSION} {arch: ${arch}, image: ${IMAGE}, arch: ${ARCH}}"
 
-  docker build -f ${VERSION}/Dockerfile -t ${ORG}/${SERVICE}:${VERSION}-${arch} --build-arg ARCH=${LND_ARCH} --build-arg IMAGE=${IMAGE} ${VERSION}/.
+  docker build -f ./Dockerfile -t ${ORG}/${SERVICE}:${VERSION}-${arch} --build-arg ARCH=${LND_ARCH} --build-arg IMAGE=${IMAGE} .
   docker push ${ORG}/${SERVICE}:${VERSION}-${arch}
 done
 
